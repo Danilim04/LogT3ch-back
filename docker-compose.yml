@@ -1,0 +1,66 @@
+version: "3.7"
+
+services:
+    # image project
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./app:/var/www
+        depends_on:
+            - redis
+        networks:
+            - laravel
+
+    # nginx
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - ./app:/var/www
+            - ./docker/nginx/:/etc/nginx/conf.d/
+        networks:
+            - laravel
+
+    # db mysql
+    db:
+        image: mongo
+        platform: linux/x86_64
+        restart: unless-stopped
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: 123
+        volumes:
+            - ./data/db:/data/db
+        ports:
+            - "27017:27017"
+        networks:
+            - laravel
+
+    # queue
+    queue:
+        image: especializati/laravel9-app
+        restart: unless-stopped
+        command: "php artisan queue:work"
+        volumes:
+            - ./app:/var/www
+        depends_on:
+            - redis
+            - app
+        networks:
+            - laravel
+
+    # redis
+    redis:
+        image: redis:latest
+        networks:
+            - laravel
+
+networks:
+    laravel:
+        driver: bridge
