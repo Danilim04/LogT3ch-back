@@ -18,6 +18,11 @@ Este repositório contém o código-fonte do backend da API de cotações desenv
 - **Armazenamento de Dados**: Os dados recebidos são armazenados de forma segura no MongoDB.
 - **Registro em Google Sheets**: Além de armazenar os dados no banco de dados, a API também registra essas informações em uma planilha do Google Sheets, facilitando o acesso e análise pela equipe de marketing.
 
+## Próximas Implementações
+
+Auth: Reforçar a segurança da API.
+Queue: Melhorar o desempenho da API.
+
 ## Exemplo de Uso
 
 **EndPoint**: `localhost/api/cotacao`
