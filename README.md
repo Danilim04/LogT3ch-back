@@ -43,9 +43,3 @@ Este repositório contém o código-fonte do backend da API de cotações desenv
     "mensagem": "Estamos esperando um site que seja altamente interativo."
   }
 }
-
-
-## Próximas Implementações
-
-Auth: Reforçar a segurança da API.
-Queue: Melhorar o desempenho da API.
